@@ -1,0 +1,73 @@
+* {
+  box-sizing: border-box;
+}
+body {
+  font-family: sans-serif;
+}
+.header {
+  background: #FA8C16;
+  padding-top: 16px;
+  padding-bottom: 16px;
+}
+.header-wrapper {
+  max-width: 1200px;
+  width: 90%;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.header-nav {
+  margin-left: 60px;
+  margin-right: auto;
+}
+.header-menu {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.header-menu-link {
+  text-decoration: none;
+  color: #fafafa;
+  margin-right: 15px;
+  font-family: 'SF Pro Display';
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 22px;
+}
+.input-group {
+  position: relative;
+  background: white;
+  border-radius: 4px;
+  overflow: hidden;
+  border: 1px solid #d9d9d9;
+  width: 237px;
+  height: 32px;
+}
+.search-input {
+  border: none;
+  outline: none;
+  height: 100%;
+  width: 80%;
+  padding-left: 12px;
+}
+.search-button {
+  height: 100%;
+  width: 20%;
+  position: absolute;
+  right: 0;
+  top: 0;
+  border: none;
+  background: white;
+  outline: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.search-input::-webkit-input-placeholder { color: #bfbfbf; }
+.search-input:-ms-input-placeholder { color: #bfbfbf; }
+.search-input::-ms-input-placeholder { color: #bfbfbf; }
+.search-input::placeholder { color: #bfbfbf; } 
