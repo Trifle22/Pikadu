@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/style.css">
+  <title>Pikadu - новый пост</title>
+</head>
+<body>
+  <header class="header">
+    <div class="header-wrapper">
+      <a href="/" class="header-logo">
+        <img src="./img/logo.svg" alt="logo" class="header-logo-img">
+      </a>
+      <nav class="header-nav">
+        <ul class="header-menu">
+          <li class="header-menu-item"><a href="#" class="header-menu-link">Свежее</a></li>
+          <li class="header-menu-item"><a href="#" class="header-menu-link">Лучшее</a></li>
+          <li class="header-menu-item"><a href="#" class="header-menu-link">Горячее</a></li>
+          <li class="header-menu-item"><a href="#" class="header-menu-link">Подписки</a></li>
+        </ul>
+        <!-- /.input-group -->
+      
+      </nav>
+      <div class="input-group search">
+        <input type="search" class="search-input" placeholder="Поиск по сайту">
+        <button class="search-button">
+          <img src="img/search-icon.svg" alt="search-icon" class="search-icon">
+        </button>
+      </div>
+      <a href="#" class="menu-toggle" id="menu-toggle">
+        <span></span>
+        <span></span>
+        <span></span>
+      </a>
+    </div>
+    <!-- /.header-wrapper -->
+  </header>
+  <div class="content">
+    <main class="posts">
+      <form action="#" class="add-post">
+        <input type="text" class="add-title" name="post-title" placeholder="Заголовок поста">
+        <textarea name="post-text" id="text" class="add-text" placeholder="Текст вашего поста">
+        </textarea>
+        <button type="submit" class="button buttton-add-post">
+          <svg class="icon new-post-icon">
+            <use xlink:href="img/icons.svg#new-post-icon"></use>
+          </svg>
+          Опубликовать пост
+        </button>
+        <div class="add-buttons">
+          <button class="button button-add-content">
+            <img src="img/video.svg" alt="">
+            Видео
+          </button>
+          <button class="button button-add-content">
+            <img src="img/photo.svg" alt="">
+            Фото
+          </button>
+        </div>
+      </form>
+    </main>
+    <aside class="sidebar">
+      <div class="user">
+        <a href='#' class="user-info">
+          <img src="img/avatar.jpg" alt="photo" class="user-avatar" width='40' height="40">
+          <span class="user-name">Alexander Khromchenkov</span>
+        </a>
+        <a href="#" class="exit">
+          <svg class="icon icon-exit">
+            <use xlink:href="img/icons.svg#exit"></use>
+          </svg>
+        </a>
+      </div>
+      <nav class="sidebar-nav">
+        <ul class="sidebar-menu">
+          <li class="sidebar-menu-item">
+            <a href="#" class="sidebar-menu-link active">
+              Ответы
+            </a>
+          </li>
+          <li class="sidebar-menu-item">
+            <a href="#" class="sidebar-menu-link">
+              Комментарии
+            </a>
+          </li>
+          <li class="sidebar-menu-item">
+            <a href="#" class="sidebar-menu-link">
+              Оценки
+            </a>
+          </li>
+          <li class="sidebar-menu-item">
+            <a href="#" class="sidebar-menu-link">
+              Сохраненное
+            </a>
+          </li>
+          <li class="sidebar-menu-item">
+            <a href="#" class="sidebar-menu-link">
+              Подписки
+            </a>
+          </li>
+          <li class="sidebar-menu-item">
+            <a href="#" class="sidebar-menu-link">
+              Заметки
+            </a>
+          </li>
+          <li class="sidebar-menu-item">
+            <a href="#" class="sidebar-menu-link">
+              Игнор-лист
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <div class="promo">
+      </div>
+    </aside>
+  </div>
+  <script src="js/main.js"></script>
+</body>
+</html>
