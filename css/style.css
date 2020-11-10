@@ -195,11 +195,71 @@ body {
 .sidebar {
   width: 31%;
 }
+
+.login {
+  background-color: #fafafa;
+  border: 1px solid #e8e8e8;
+  padding: 15px 25px;
+  align-items: center;
+  justify-content: space-between;
+}
+.login-form {
+  display: flex;
+  flex-direction: column;
+}
+.login-title {
+  text-align: center;
+  margin-bottom: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #595959;
+}
+.login-input {
+  display: block;
+  background-color: white;
+  border: 1px solid #e8e8e8;
+  padding: 5px 15px;
+  margin-bottom: 15px;
+}
+.login-forget {
+  text-align: center;
+  font-size: 12px;
+  text-decoration: none;
+  color: #757575;
+  margin-bottom: 10px;
+  font-style: italic;
+}
+.login-signin {
+  background-color: #FA8C16;
+  border: none;
+  outline: none;
+  border-radius: 2px;
+  text-transform: uppercase;
+  cursor: pointer;
+  color: white;
+  line-height: 32px;
+  font-size: 12px;
+  margin-bottom: 15px;
+}
+.login-signin:hover {
+  filter: opacity(80%);
+}
+.login-signin:active {
+  filter: brightness(85%);
+}
+
+.login-signup {
+  color: #d48806;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-size: 14px;
+  text-align: center;
+}
 .user {
   background-color: #fafafa;
   border: 1px solid #e8e8e8;
   padding: 15px 25px;
-  display: flex;
+  display: none;
   align-items: center;
   justify-content: space-between;
 }
@@ -225,6 +285,7 @@ body {
   fill: black;
 }
 .sidebar-nav {
+  display: none;
   background-color: white;
 }
 .sidebar-menu {
@@ -268,7 +329,7 @@ body {
 }
 .button-new-post {
   width: 100%;
-  display: flex;
+  display: none;
   align-items: center;
   justify-content: center;
   color: white;
