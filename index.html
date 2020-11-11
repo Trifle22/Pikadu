@@ -185,15 +185,30 @@
       </div>
 
       <div class="user">
-        <a href='#' class="user-info">
-          <img src="img/avatar.jpg" alt="photo" class="user-avatar" width='40' height="40">
-          <span class="user-name">Alexander Khromchenkov</span>
-        </a>
-        <a href="#" class="exit">
-          <svg class="icon icon-exit">
-            <use xlink:href="img/icons.svg#exit"></use>
-          </svg>
-        </a>
+        <div class="user-container">
+          <a href='#' class="user-info">
+            <img src="img/avatar.jpg" alt="photo" class="user-avatar" width='40' height="40">
+            <span class="user-name">Alexander Khromchenkov</span>
+          </a>
+          <a class="edit">
+            <img src="img/edit-button.svg" alt="edit" class="icon icon-edit">
+          </a>
+          <a href="#" class="exit">
+            <svg class="icon icon-exit">
+              <use xlink:href="img/icons.svg#exit"></use>
+            </svg>
+          </a>
+        </div>
+        <form class="edit-container">
+          <h2 class="edit-title">Редактировать</h2>
+          <label class="edit-label">Ваш логин
+            <input type="text" class="edit-input edit-username" name="username" minlength="3" placeholder="Логин">
+          </label>
+          <label class="edit-label">Ваше фото
+            <input type="text" class="edit-input edit-photo" name="username" minlength="3" placeholder="URL-photo">
+          </label>
+          <button class="edit-btn">Сохранить</button>
+        </form>
       </div>
       <nav class="sidebar-nav">
         <ul class="sidebar-menu">
