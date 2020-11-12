@@ -274,6 +274,7 @@ body {
 .user-avatar {
   border-radius: 50%;
   margin-right: 17px;
+  object-fit: cover;
 }
 .user-name {
   font-style: normal;
