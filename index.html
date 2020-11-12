@@ -5,6 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="css/normalize.css">
   <link rel="stylesheet" href="css/style.css">
+  
+  <script src="https://www.gstatic.com/firebasejs/8.0.1/firebase-app.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use 
+  https://firebase.google.com/docs/web/setup#available-libraries -->
+
+  <script src="https://www.gstatic.com/firebasejs/8.0.1/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.0.1/firebase-database.js"></script>
+
   <script src="js/main.js" defer></script>
   <title>Pikadu - главная</title>
 </head>
@@ -41,11 +50,26 @@
   <div class="content">
     <main class="posts">
     </main>
+    <!-- new post -->
+    <form action="#" class="add-post">
+      <input type="text" class="add-title" name="title" placeholder="Заголовок поста">
+      <textarea name="text" class="add-text" placeholder="Текст вашего поста"></textarea>
+      <input type="text" class="add-tags" name="tags" placeholder="Добавьте теги через запятую">
+      <div class="add-buttons">
+        <button type="submit" class="button buttton-add-post">
+          <svg class="icon new-post-icon">
+            <use xlink:href="img/icons.svg#new-post-icon"></use>
+          </svg>
+          Опубликовать пост
+        </button>
+      </div>
+    </form>
+
     <aside class="sidebar">
 
       <div class="login">
         <form class="login-form">
-          <h2 class="login-title">Аторизация</h2>
+          <h2 class="login-title">Авторизация</h2>
           <input type="email" class="login-input login-email" name="email" minlength="3" required placeholder="Введите e-mail">
           <input type="password" class="login-input login-password" name="password" minlength="3" required placeholder="Введите пароль">
 
