@@ -35,47 +35,57 @@ const editELem = document.querySelector('.edit');
 const editContainer = document.querySelector('.edit-container');
 const editUsername = document.querySelector('.edit-username');
 const editPhotoURL= document.querySelector('.edit-photo');
-userAvatarElem = document.querySelector('.user-avatar');
+const userAvatarElem = document.querySelector('.user-avatar');
 const postsWrapper = document.querySelector('.posts');
 const buttonNewPost = document.querySelector('.button-new-post');
 const addPostElem = document.querySelector('.add-post');
+const loginForget = document.querySelector('.login-forget');
 
-
-const listUsers = [
-  {
-    id: '01',
-    email: 'alex@mail.com',
-    password: '12345',
-    displayName: 'alex',
-    photo: 'https://www.blackpantera.ru/upload/iblock/d90/Znachenie-imeni-Martin.jpg',
-  },
-  {
-    id: '02',
-    email: 'alexKhrom@mail.com',
-    password: '123456',
-    displayName: 'alexKhrom',
-  },
-];
+const DEFAULT_PHOTO = userAvatarElem.src;
 
 const setUsers = {
   user: null,
-  logIn(email, password, handler) {
-    if (!regExpEmail.test(email)) return alert('Введите корректный e-mail')
-    const user = this.getUser(email);
-    if (user && user.password === password) {
-      this.authorizedUser(user);
-      if (handler) {
-        handler();
+  initUser(handler) {
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        this.user = user;
+      } else {
+        this.user = null;
       }
-    } else {
-      alert('такого пользователя не существует');
-    }
+      if (handler) handler();
+    })
   },
-  logOut(handler) {
-    this.user = null;
-    if (handler) {
-      handler();
-    }
+
+  logIn(email, password, handler) {
+    if (!regExpEmail.test(email)) return alert('Введите корректный e-mail');
+
+    firebase.auth().signInWithEmailAndPassword(email, password).catch(err => {
+      const errCode = err.code;
+      const errMessage = err.message;
+      if (errCode === 'auth/wrong-password') {
+        console.log(errMessage);
+        alert('Неверный пароль')
+      } else if (errCode === 'auth/user-not-found') {
+        alert('Пользователь не найден');
+      } else {
+        alert(errMessage)
+      }
+      console.log(err);
+    })
+
+    // const user = this.getUser(email);
+    // if (user && user.password === password) {
+    //   this.authorizedUser(user);
+    //   if (handler) {
+    //     handler();
+    //   }
+    // } else {
+    //   alert('такого пользователя не существует');
+    // }
+  },
+  logOut() {
+
+    firebase.auth().signOut();
   },
   signUp(email, password, handler) {
     if (!regExpEmail.test(email)) return alert('Введите корректный e-mail');
@@ -86,94 +96,119 @@ const setUsers = {
 
     }
 
-    if (!this.getUser(email)) {
-      const user = {email, password, displayName: email.substring(0, email.indexOf('@'))};
-      listUsers.push(user)
-      this.authorizedUser(user);
-      handler();
-    } else {
-      alert('такой пользователь существует')
+    firebase.auth()
+    .createUserWithEmailAndPassword(email, password)
+    .then(data => {
+      this.editUser(email.substring(0, email.indexOf('@')), null, handler)
+    })
+    .catch(err => {
+      const errCode = err.code;
+      const errMessage = err.message;
+      if (errCode === 'auth/weak-password') {
+        console.log(errMessage);
+        alert('слабый пароль')
+      } else if (errCode === 'auth/email-already-in-use') {
+        console.log('Этот email уже используется');
+      } else {
+        alert(errMessage)
+      }
+    });
+
+    // if (!this.getUser(email)) {
+    //   const user = {email, password, displayName: email.substring(0, email.indexOf('@'))};
+    //   listUsers.push(user)
+    //   this.authorizedUser(user);
+    //   handler();
+    // } else {
+    //   alert('такой пользователь существует')
+    // }
+  },
+
+  editUser(displayName, photoURL, handler) {
+
+    const user = firebase.auth().currentUser;
+
+    if (displayName) {
+      if (photoURL) {
+        user.updateProfile({
+          displayName,
+          photoURL
+        }).then(handler)
+      } else {
+        user.updateProfile({
+          displayName
+        }).then(handler)
+      }
     }
   },
 
-  editUser(userName, userPhoto, handler) {
-    if (userName) {
-      this.user.displayName = userName;
-    }
-    if (userPhoto) {
-      this.user.photo  = userPhoto;
-    }
+  // getUser(email) {
+  //   return listUsers.find(item => item.email === email);
+  // },
+  // authorizedUser(user) {
+  //   this.user = user;
+  // }
 
-    handler();
-  },
-
-  getUser(email) {
-    return listUsers.find(item => item.email === email);
-  },
-  authorizedUser(user) {
-    this.user = user;
+  sendForget(email) {
+    firebase.auth().sendPasswordResetEmail(email)
+    .then(() => {
+      alert('Письмо отправлено')
+    })
+    .catch(err => {
+      console.log(err);
+    })
   }
 };
 
+loginForget.addEventListener('click', event => {
+  event.preventDefault();
+
+  setUsers.sendForget(emailInput.value);
+  emailInput.value = '';
+})
+
 const setPosts = {
-  allPosts: [
-    {
-      title: 'Заголовок поста',
-      text: 'у меня скоро голова лопнет',
-      tags: ['свежее','новое','горячее','мое','случайность'],
-      author: {displayName: 'alex', photo: 'https://www.blackpantera.ru/upload/iblock/d90/Znachenie-imeni-Martin.jpg'},
-      date: '11.11.2020, 19:54:00',
-      like: 15,
-      comments: 20,
-    },
-    {
-      title: 'Заголовок поста2',
-      text: 'изучение джава скрипт',
-      tags: ['свежее','новое','мое','случайность'],
-      author: {displayName: 'alex', photo: 'https://www.blackpantera.ru/upload/iblock/d90/Znachenie-imeni-Martin.jpg'},
-      date: '10.11.2020, 21:54:00',
-      like: 45,
-      comments: 12,
-    },
-    {
-      title: 'Заголовок поста3',
-      text: 'программирование это классно',
-      tags: ['свежее','новое','мое','случайность'],
-      author: {displayName: 'alex', photo: 'https://www.blackpantera.ru/upload/iblock/d90/Znachenie-imeni-Martin.jpg'},
-      date: '10.11.2020, 22:54:00',
-      like: 45,
-      comments: 12,
-    },
-  ],
+  allPosts: [],
   addPost(title, text , tags, handler) {
 
+    const user = firebase.auth().currentUser;
+
     this.allPosts.unshift({
+
+      id: `postID${(+new Date()).toString(16)}-${user.uid}`,
       title,
       text,
       tags: tags.split(',').map(item => item.trim()),
       author: {
         displayName: setUsers.user.displayName,
-        photo: setUsers.user.photo,
+        photo: setUsers.user.photoURL,
       },
       date: new Date().toLocaleString(),
       like: 0,
       comments: 0,
     });
 
-    if (handler) {
+    firebase.database().ref('post').set(this.allPosts)
+    .then(() => this.getPosts(handler))
+  },
+
+  getPosts(handler) {
+    firebase.database().ref('post').on('value', snapshot => {
+      this.allPosts = snapshot.val() || [];
       handler();
-    }
+    })
   }
 };
 
 const toggleAuthDom = () => {
   const user = setUsers.user;
+  console.log(user);
   
   if (user) {
     loginElem.style.display = 'none';
     userElem.style.display = '';
     userNameElem.textContent = user.displayName;
-    userAvatarElem.src = user.photo || userAvatarElem.src;
+    userAvatarElem.src = user.photoURL || DEFAULT_PHOTO;
     buttonNewPost.classList.add('visible');
   } else {
     loginElem.style.display = '';
@@ -285,7 +320,7 @@ const init = () => {
   
   exitElem.addEventListener('click', event => {
     event.preventDefault();
-    setUsers.logOut(toggleAuthDom);
+    setUsers.logOut();
   });
   
   editELem.addEventListener('click', event => {
@@ -330,8 +365,8 @@ const init = () => {
     addPostElem.reset();
   });
 
-  showAllPosts();
-  toggleAuthDom();
+  setUsers.initUser(toggleAuthDom);
+  setPosts.getPosts(showAllPosts)
 }
 
 document.addEventListener('DOMContentLoaded', init);
